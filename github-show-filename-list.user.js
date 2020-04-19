@@ -12,11 +12,13 @@
 (function() {
   'use strict';
 
-  var font_css = 'font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;';
+  var font_css = '';
+  font_css += 'font-size: 12px;';
+  font_css += 'font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;';
+
   var span_css = '';
   span_css += font_css
   span_css += 'margin-right: 8px;';
-  span_css += 'font-size: 12px;';
   span_css += 'display: inline-block;';
   span_css += 'width: 40px;';
   span_css += 'height: 18px;';
