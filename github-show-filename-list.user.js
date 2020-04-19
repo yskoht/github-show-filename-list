@@ -4,8 +4,7 @@
 // @version      0.1
 // @description  Show filename list on "Files changed" tab in GitHub
 // @author       yskoht
-// @match        https://github.com/*/files
-// @match        https://github.com/*/commits/*
+// @match        https://github.com/*
 // @grant        none
 // ==/UserScript==
 
@@ -86,16 +85,16 @@
     removeOldElement();
 
     var refElement = document.getElementById('files');
+    var fileInfos = document.getElementsByClassName('file-info');
+    if(!refElement || fileInfos.length === 0) return;
+
     var newElement = createNewElement();
     refElement.parentNode.insertBefore(newElement, refElement);
   };
 
-  var pS = window.history.pushState;
+  run();
+
   var rS = window.history.replaceState;
-  window.history.pushState = function(a, b, url) {
-    run();
-    pS.apply(this, arguments);
-  };
   window.history.replaceState = function(a, b, url) {
     run();
     rS.apply(this, arguments);
