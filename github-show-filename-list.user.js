@@ -36,9 +36,7 @@
     return div;
   };
 
-  var addFileNames = (div) => {
-    var fileInfos = document.getElementsByClassName('file-info');
-
+  var addFileNames = (div, fileInfos) => {
     for(var i = 0; i < fileInfos.length; i++) {
       var fileInfo = fileInfos[i];
       var link = fileInfo.getElementsByTagName('a')[0];
@@ -75,9 +73,9 @@
     }
   };
 
-  var createNewElement = () => {
+  var createNewElement = (fileInfos) => {
     var div = createNewDiv();
-    addFileNames(div);
+    addFileNames(div, fileInfos);
     return div;
   };
 
@@ -88,7 +86,7 @@
     var fileInfos = document.getElementsByClassName('file-info');
     if(!refElement || fileInfos.length === 0) return;
 
-    var newElement = createNewElement();
+    var newElement = createNewElement(fileInfos);
     refElement.parentNode.insertBefore(newElement, refElement);
   };
 
