@@ -11,18 +11,36 @@
 (function() {
   'use strict';
 
-  var font_css = '';
-  font_css += 'font-size: 12px;';
-  font_css += 'font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;';
+  var fontStyle = '';
+  fontStyle += 'font-size: 12px;';
+  fontStyle += 'font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;';
 
-  var span_css = '';
-  span_css += font_css
-  span_css += 'margin-right: 8px;';
-  span_css += 'display: inline-block;';
-  span_css += 'width: 40px;';
-  span_css += 'height: 18px;';
-  span_css += 'text-align: center;';
-  span_css += 'border-radius: 0 3px 3px 0;';
+  var spanStyle = '';
+  spanStyle += fontStyle
+  spanStyle += 'margin-right: 8px;';
+  spanStyle += 'display: inline-block;';
+  spanStyle += 'width: 40px;';
+  spanStyle += 'height: 18px;';
+  spanStyle += 'text-align: center;';
+  spanStyle += 'border-radius: 0 3px 3px 0;';
+
+  var moreButtonStyle = '';
+  moreButtonStyle += fontStyle;
+  moreButtonStyle += 'color: #555;';
+  moreButtonStyle += 'margin-top: 4px;';
+  moreButtonStyle += 'padding: 0;';
+  moreButtonStyle += 'border: none;';
+  moreButtonStyle += 'cursor: pointer;';
+  moreButtonStyle += 'outline: none;';
+  moreButtonStyle += 'appearance: none;';
+  moreButtonStyle += 'display: flex;';
+  moreButtonStyle += 'align-items: center;';
+
+  var hrStyle = '';
+  hrStyle += 'width: 150px;';
+  hrStyle += 'margin: 0;';
+  hrStyle += 'border: none;';
+  hrStyle += 'border-top: 1px dashed #ddd;';
 
   var removeOldElement = () => {
     var oldElement = document.getElementById('file-name-lists');
@@ -52,41 +70,71 @@
       var d = document.createElement('div');
       d.style = 'margin-top: 2px;';
 
-      var span_add = document.createElement('span');
-      span_add.innerText = '+' + addition;
-      span_add.style = span_css + 'background-color: #cfc; color: #399839'
+      var spanAdd = document.createElement('span');
+      spanAdd.innerText = '+' + addition;
+      spanAdd.style = spanStyle + 'background-color: #cfc; color: #399839'
 
-      var span_del = document.createElement('span');
-      span_del.innerText = '-' + deletion;
-      span_del.style = span_css + 'background-color: #fdd; color: #c33'
+      var spanDel = document.createElement('span');
+      spanDel.innerText = '-' + deletion;
+      spanDel.style = spanStyle + 'background-color: #fdd; color: #c33'
 
       var a = document.createElement('a');
       a.href = href;
       a.innerText = fileName;
-      a.style = font_css;
+      a.style = fontStyle;
 
-      d.appendChild(span_add);
-      d.appendChild(span_del);
+      d.appendChild(spanAdd);
+      d.appendChild(spanDel);
       d.appendChild(a);
 
       div.appendChild(d);
     }
   };
 
-  var createNewElement = (fileInfos) => {
+  var addMoreButton = (div) => {
+    var button = document.createElement('button');
+    button.onclick = run;
+    button.style = moreButtonStyle;
+
+    var hr1 = document.createElement('hr');
+    hr1.style = hrStyle;
+    button.appendChild(hr1);
+
+    var text = document.createElement('div');
+    text.innerHTML = 'more';
+    text.style = 'margin: 0 8px; height: 16px;';
+    button.appendChild(text);
+
+    var hr2 = document.createElement('hr');
+    hr2.style = hrStyle;
+    button.appendChild(hr2);
+
+    div.appendChild(button);
+  };
+
+  var createNewElement = (fileInfos, filesTabCounter) => {
     var div = createNewDiv();
     addFileNames(div, fileInfos);
+    if(fileInfos.length !== filesTabCounter) {
+      addMoreButton(div);
+    }
     return div;
+  };
+
+  var getFilesTabCounter = () => {
+    var counter = document.getElementById('files_tab_counter').innerHTML;
+    return counter && parseInt(counter.trim());
   };
 
   var run = () => {
     removeOldElement();
 
+    var filesTabCounter = getFilesTabCounter();
     var refElement = document.getElementById('files');
     var fileInfos = document.getElementsByClassName('file-info');
     if(!refElement || fileInfos.length === 0) return;
 
-    var newElement = createNewElement(fileInfos);
+    var newElement = createNewElement(fileInfos, filesTabCounter);
     refElement.parentNode.insertBefore(newElement, refElement);
   };
 
