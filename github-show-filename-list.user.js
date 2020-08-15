@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         GitHub Show Filename List
 // @namespace    https://github.com/yskoht/github-show-filename-list
-// @version      0.2
+// @version      0.3
 // @description  Show filename list on "Files changed" tab in GitHub
 // @author       yskoht
 // @match        https://github.com/*
