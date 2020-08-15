@@ -116,14 +116,17 @@
   var createNewElement = (fileInfos, filesTabCounter) => {
     var div = createNewDiv();
     addFileNames(div, fileInfos);
-    if(fileInfos.length !== filesTabCounter) {
+    if(filesTabCounter && fileInfos.length !== filesTabCounter) {
       addMoreButton(div);
     }
     return div;
   };
 
   var getFilesTabCounter = () => {
-    var counter = document.getElementById('files_tab_counter').innerHTML;
+    var filesTabCounter = document.getElementById('files_tab_counter');
+    if(!filesTabCounter) return null;
+
+    var counter = filesTabCounter.innerHTML;
     return counter && parseInt(counter.trim());
   };
 
