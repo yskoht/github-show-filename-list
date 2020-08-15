@@ -35,6 +35,7 @@
   moreButtonStyle += 'appearance: none;';
   moreButtonStyle += 'display: flex;';
   moreButtonStyle += 'align-items: center;';
+  moreButtonStyle += 'background-color: #FFF;';
 
   var hrStyle = '';
   hrStyle += 'width: 150px;';
