@@ -58,9 +58,11 @@
   var addFileNames = (div, fileInfos) => {
     for(var i = 0; i < fileInfos.length; i++) {
       var fileInfo = fileInfos[i];
-      var link = fileInfo.getElementsByTagName('a')[0];
-      var fileName = link.title;
-      var href = link.href;
+      var links = fileInfo.getElementsByTagName('a');
+      // links[0].title === "" if the file has code owners
+      var fileLink = (links[0].title !== "") ? links[0] : links[1];
+      var fileName = fileLink.title;
+      var href = fileLink.href;
 
       var diffStat = fileInfo.getElementsByClassName('diffstat')[0];
       var ariaLabel = diffStat.getAttribute('aria-label');
