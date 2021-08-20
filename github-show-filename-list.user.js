@@ -65,6 +65,9 @@
       var href = fileLink.href;
 
       var diffStat = fileInfo.getElementsByClassName('diffstat')[0];
+      if (!diffStat) {
+        continue;
+      }
       var ariaLabel = diffStat.getAttribute('aria-label');
       var m = /^.+:\s(\d+)\s.+&\s(\d+)\s.+$/.exec(ariaLabel);
       var addition = m ? m[1] : 0;
@@ -118,7 +121,7 @@
   var createNewElement = (fileInfos, filesTabCounter) => {
     var div = createNewDiv();
     addFileNames(div, fileInfos);
-    if(filesTabCounter && fileInfos.length !== filesTabCounter) {
+    if(filesTabCounter && fileInfos.length < filesTabCounter) {
       addMoreButton(div);
     }
     return div;
